@@ -1,0 +1,10 @@
+---
+- name: ping playbook
+  hosts: all
+  tasks:
+  - name: execute shell and save in variable
+    shell: df -h
+    register: df_output
+  - name: show df_output content
+    debug:
+     msg: " {{ df_output.stdout_lines }} "

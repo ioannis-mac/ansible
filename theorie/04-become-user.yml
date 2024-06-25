@@ -1,0 +1,17 @@
+---
+- name: Connect with an account at cible1
+  hosts: cible1
+  gather_facts: no
+  become: yes
+  become_user: root
+
+  tasks:
+    - name: Copy on file
+      copy:
+       src: /home/ansible/theorie/fichier.txt
+       dest: /tmp
+
+    - name: install httpd
+      yum:
+       name: httpd
+       state: present

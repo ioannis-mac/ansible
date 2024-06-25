@@ -1,0 +1,15 @@
+---
+- name: A name
+  hosts: all
+  vars:
+    favcolor: blue
+  vars_files:
+    - /home/ansible/external_var.yml
+  become: yes
+  become_method: sudo
+
+  tasks:
+    - name: Install something with yum
+      yum:
+        name: "{{ package }}"
+        state: "{{ state }}"

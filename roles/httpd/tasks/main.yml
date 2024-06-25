@@ -1,0 +1,19 @@
+---
+# tasks file for httpd
+- name: Install httpd
+  yum:
+   name: httpd
+   state: latest
+
+- name: Modify listen port
+  lineinfile:
+    path: /etc/httpd/conf/httpd.conf
+    regexp: '^Listen'
+    line: 'Listen 8080'
+    state: present
+
+- name: restart_httpd
+  service:
+   name: httpd
+   state: restarted
+  notify: restart_httpd

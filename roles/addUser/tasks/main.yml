@@ -1,0 +1,6 @@
+---
+# tasks file for addUser  
+- name: Create user
+  user:
+   name: "{{ username }}"
+   password: "{{ password | password_hash('sha512') }}"

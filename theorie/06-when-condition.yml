@@ -1,0 +1,18 @@
+---
+- name: when condition
+  hosts: localhost
+  vars_prompt:
+   - name: "response"
+     prompt: "Tu veux executer? \n1-yes\n2-no"
+     private: no
+
+  tasks:
+   - name: "tache1"
+     debug:
+      msg: "parfait!"
+     when: response == "1"
+
+   - name: "tache2"
+     debug:
+      msg: "bye"
+     when: response == "2"

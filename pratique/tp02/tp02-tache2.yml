@@ -1,0 +1,23 @@
+---
+- name: Copy file on cible1
+  hosts: cible1
+  become: yes
+  become_user: root
+
+  tasks:
+    - name: Copy a file on /var
+      copy:
+       src: /home/ansible/pratique/tp02/index1.html
+       dest: /var/www/html/index.html
+
+- name: Copy a file on cible2
+  hosts: cible2
+  become: yes
+  become_user: root
+
+  tasks:
+    - name: Copy a file on /var
+      copy:
+       src: /home/ansible/pratique/tp02/index2.html
+       dest: /var/www/html/index.html
+

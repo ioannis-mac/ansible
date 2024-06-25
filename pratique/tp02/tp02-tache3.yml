@@ -1,0 +1,29 @@
+---
+- name: Configure firewalld to allow httpd connections
+  hosts: all
+  become: yes
+
+  tasks:
+    - name: Ensure firewalld is running and enabled
+      systemd:
+        name: firewalld
+        state: started
+        enabled: yes
+
+    - name: Allow HTTP service through firewalld
+      firewalld:
+        service: http
+        permanent: yes
+        state: enabled
+        immediate: yes
+
+    - name: Allow HTTPS service through firewalld
+      firewalld:
+        service: https
+        permanent: yes
+        state: enabled
+        immediate: yes
+
+    - name: Reload firewalld
+      firewalld:
+        state: reloaded

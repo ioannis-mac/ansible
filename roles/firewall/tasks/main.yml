@@ -1,0 +1,24 @@
+---
+# tasks file for firewall
+- name: Installation of firewalld
+  yum:
+   name: firewalld
+   state: latest   
+#- name: Allow HTTP service through firewalld
+#  firewalld:
+#    service: https
+#    permanent: yes
+#    state: enabled
+#    immediate: yes
+- name: Start firewalld
+  service:
+    name: firewalld
+    state: started
+    enabled: yes
+- name: do permit traffic in default zone on port 8080/tcp
+  firewalld:
+    port: 8080/tcp
+    permanent: true
+    state: enabled
+    immediate: yes
+  notify: restart httpd

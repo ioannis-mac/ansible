@@ -1,0 +1,6 @@
+---
+- name: Playbook pour deploiement de mon app
+  hosts: all
+  become: yes
+  roles:
+   - app

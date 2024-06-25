@@ -1,0 +1,12 @@
+---
+# tasks file for app
+- name: Print message
+  debug:
+   msg: "Bonjour"
+
+- name: copy file
+  copy:
+   src: password.txt
+   dest: /home/ansible
+  notify:
+   - stop httpd

@@ -1,0 +1,44 @@
+---
+- name: Installation des packages
+  hosts: all
+  gather_facts: true
+  become: true
+
+  tasks:
+    - name: latest httpd is installed
+      yum:
+        name:
+          - httpd
+        state: latest
+
+    - name: Modify listen port
+      lineinfile:
+        path: /etc/httpd/conf/httpd.conf
+        regexp: '^Listen'
+        line: 'Listen 8080'
+        state: present
+
+    - name: restart_httpd
+      service:
+       name: httpd
+       state: restarted
+      notify: restart_httpd
+
+  handlers:
+    - name: restart_httpd
+      service:
+       name: httpd
+       state: restarted
+
+- name: Alow port
+  hosts: all
+  gather_facts: true
+  become: true
+
+  tasks:
+    - name: do permit traffic in default zone on port 8080/tcp
+      firewalld:
+        port: 8080/tcp
+        permanent: true
+        state: enabled
+        immediate: yes

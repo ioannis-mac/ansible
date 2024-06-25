@@ -1,0 +1,46 @@
+---
+- name: Premiere tache de tp
+  hosts: localhost
+
+  vars_prompt:
+    - name: "username"
+      prompt: "Entrez votre username"
+      private: no
+    - name: "mot_de_passe"
+      prompt: "Entrez votre mot de passe"
+      private: yes
+
+  tasks:
+    - name: afficher le contenu de la variable name
+      debug:
+        msg: "Bonjour {{ username }}"
+
+    - name: afficher le contenu de la variable mot de passe
+      debug:
+        msg: "Votre mot de passe est: {{ mot_de_passe }}"
+
+- name: Deuxieme tach de tp
+  hosts: localhost
+  vars:
+   ssh_port: 22
+
+  tasks:
+    - name: afficher le contenu de ssh_port
+      debug:
+        msg: "le port ssh a pour valeur:  {{ ssh_port }}"
+
+- name: Quatrieme tache de tp
+  hosts: all
+  vars:
+    favcolor: blue
+  vars_files:
+    - /home/ansible/external_var.yml
+  become: yes 
+  become_method: sudo
+  become_ask_pass: yes
+
+  tasks:
+    - name: Install something with yum
+      yum:
+        name: "{{ package }}"
+        state: "{{ state }}"

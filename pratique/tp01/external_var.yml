@@ -1,0 +1,5 @@
+---
+# the variables of the 4th task
+package: httpd
+state: latest
+

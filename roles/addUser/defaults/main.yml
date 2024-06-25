@@ -1,0 +1,4 @@
+---
+# defaults file for addUser
+vars_files:
+ - files/use.txt

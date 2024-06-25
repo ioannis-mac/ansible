@@ -1,0 +1,15 @@
+---
+- name: Playbook templates
+  hosts: all
+  become: yes
+  become_user: root
+  vars:
+   type_d_arch: "{{ ansible_architecture }}"
+   hostname: "{{ ansible_hostname }}"
+   distrib: "{{ ansible_distribution }}"
+   
+  tasks:
+   - name: Print data at home message
+     template:
+       src: ../../templates/tp05.conf.j2
+       dest: /etc/motd

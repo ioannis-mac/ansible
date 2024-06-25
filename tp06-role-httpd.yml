@@ -1,0 +1,10 @@
+---
+- name: Playbook pour l'installation de service httpd
+  hosts: all
+  become: yes
+  vars_files:
+   - roles/addUser/files/use.txt
+  roles:
+   - httpd
+   - firewall
+   - addUser

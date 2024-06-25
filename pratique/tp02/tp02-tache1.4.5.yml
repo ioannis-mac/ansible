@@ -1,0 +1,44 @@
+---
+- name: Les packets httpd et firewalld
+  hosts: all
+  become: yes
+  become_user: root
+  
+  tasks:
+   - name: latest httpd et firewalld
+     yum:
+      name: 
+       - httpd
+       - firewalld
+      state: latest
+# tache 3
+   - name: Restart httpd
+     service:
+      name: firewalld
+      state: started
+   - name: Ensure firewalld is running and enabled
+     systemd:
+      name: firewalld
+      state: started
+      enabled: yes
+# tache 4 et 5
+   - name: Allow HTTP service through firewalld
+     firewalld:
+       service: https
+       permanent: yes
+       state: enabled
+       immediate: yes
+   - name: Reload firewalld
+     firewalld:
+       state: enabled
+       immediate: yes
+   - name: do permit traffic in default zone on port 80/tcp
+     firewalld:
+       port: 80/tcp
+       permanent: true
+       state: enabled
+       immediate: yes
+# tache 6
+   - name: Check url connection
+     ansible.builtin.uri:
+      url: http://{{ ansible_host }}

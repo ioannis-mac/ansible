@@ -1,0 +1,6 @@
+---
+# handlers file for app
+- name: stop httpd
+  service:
+   name: httpd
+   state: stopped

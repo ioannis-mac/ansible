@@ -1,0 +1,6 @@
+---
+- name: Playbook pour l'installation de service firewalld
+  hosts: all
+  become: yes
+  roles:
+   - firewall
